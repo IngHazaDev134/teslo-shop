@@ -54,3 +54,10 @@ pids
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+
+# Excluyento las variables de entorno
+.env
+
+# Exclyento el directorio de postgres
+/postgres
