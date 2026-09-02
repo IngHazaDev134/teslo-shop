@@ -4,7 +4,21 @@
 
 # TESLO API
 
-#### 1. Levantar la base de datos
+#### 1. Clonar proyecto
+#### 2. Ejecutar
+```
+yarn install
+```
+#### 3. Clonar el archivo 
+```
+.env.template - .env
+```
+#### 4. Cambiar la variables de entorno
+#### 5. Levantar la base de datos
 ```
 docker-compose up -d
+```
+#### 6. Levantar el modo desarrollo
+```
+yarn start:dev
 ```
