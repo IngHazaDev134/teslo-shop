@@ -27,20 +27,36 @@ export class ProductsService {
     }
   }
 
-  findAll() {
-    return `This action returns all products`;
+  //TODO: Paginar resultados
+  async findAll() {
+    try {
+      const products = await this.productRepository.find();
+      return products;
+    }catch (error: any) {
+      this.handleDBExceptions(error);
+    }
+  }
+  
+  async findOne(id: string) {
+    try {
+      const product = await this.productRepository.findOne({ where: { id } });
+      return product;
+    } catch (error: any) {
+      this.handleDBExceptions(error);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
-  }
-
-  update(id: number, updateProductDto: UpdateProductDto) {
+  update(id: string, updateProductDto: UpdateProductDto) {
     return `This action updates a #${id} product`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: string) {
+    try {
+      const product = await this.productRepository.delete(id);
+      return product;
+    } catch (error: any) {
+      this.handleDBExceptions(error);
+    }
   }
 
 
