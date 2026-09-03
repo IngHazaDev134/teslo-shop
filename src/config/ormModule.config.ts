@@ -1,5 +1,5 @@
 interface OrmModuleConfig {
-    type: 'postgres';
+    type: string;
     host: string;
     port: number;
     database: string;
@@ -10,7 +10,7 @@ interface OrmModuleConfig {
 }
 
 export const ormModuleConfig: OrmModuleConfig = ({
-    type: 'postgres',
+    type: process.env.DB_MOTOR_DB || 'postgres',
     host: process.env.DB_HOST || 'localhost',
     port: Number(process.env.DB_PORT) || 5432,
     database: process.env.DB_NAME || 'nestjs',
