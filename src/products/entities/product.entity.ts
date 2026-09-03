@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Product {
@@ -29,4 +29,15 @@ export class Product {
 
     //* tags
     //* omages
+
+    //* Este parocion de código es pera poder insertar un slug en caso de que no se haya insertado uno 
+    @BeforeInsert()
+    checkSlugInsert() {
+        if (!this.slug) {
+            this.slug = this.title;
+        }
+        this.slug
+    }
+
+    //*BeforuUpdate
 }
