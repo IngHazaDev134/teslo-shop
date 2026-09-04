@@ -28,6 +28,8 @@ export class Product {
     gender: string;
 
     //* tags
+    @Column('text', { array: true, default: [] })
+    tags: string[];
     //* omages
 
     //* Este parocion de código es pera poder insertar un slug en caso de que no se haya insertado uno 
