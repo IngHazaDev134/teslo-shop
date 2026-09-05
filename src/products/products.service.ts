@@ -12,12 +12,13 @@ export class ProductsService {
 
   private readonly logger = new Logger('ProductsService');
 
+
   constructor(
     @InjectRepository(Product) 
     private readonly productRepository: Repository<Product>,
-  ) {
+  ) {}
 
-  }
+
 
   async create(createProductDto: CreateProductDto) {
     try {
@@ -29,13 +30,12 @@ export class ProductsService {
     }
   }
 
+
  
   async findAll(paginationDto: PaginationDto) {
     const { limit = 2, offset = 1 } = paginationDto;
     try {
-      const products = await this.productRepository.find({
-        take: limit,
-        skip: offset
+      const products = await this.productRepository.find({ take: limit, skip: offset
         // TODO: relacionar las tablas de productos con las imagenes
       });
       return products;
@@ -44,6 +44,8 @@ export class ProductsService {
     }
   }
   
+
+
   async findOne(term: string) {
 
     let product: Product | null;
@@ -52,10 +54,7 @@ export class ProductsService {
       product = await this.productRepository.findOneBy({ id: term });
     } else {
       const queryBuilder = this.productRepository.createQueryBuilder('prod');
-      product = await queryBuilder.where('UPPER(title) =:title or slug =:slug', {
-        title: term.toUpperCase(),
-        slug: term.toLowerCase()
-      }).getOne();
+      product = await queryBuilder.where('UPPER(title) =:title or slug =:slug', {title: term.toUpperCase(), slug: term.toLowerCase()}).getOne();
     }
 
     if(!product) {
