@@ -30,7 +30,10 @@ export class Product {
     //* tags
     @Column('text', { array: true, default: [] })
     tags: string[];
-    //* omages
+
+    //* images
+    @Column('text', { array: true, default: [] })
+    images: string[];
 
     //* Este parocion de código es pera poder insertar un slug en caso de que no se haya insertado uno 
     @BeforeInsert()

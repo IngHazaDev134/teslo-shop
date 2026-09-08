@@ -33,7 +33,7 @@ export class ProductsService {
 
  
   async findAll(paginationDto: PaginationDto) {
-    const { limit = 2, offset = 1 } = paginationDto;
+    const { limit = 1, offset = 1 } = paginationDto;
     try {
       const products = await this.productRepository.find({ take: limit, skip: offset
         // TODO: relacionar las tablas de productos con las imagenes

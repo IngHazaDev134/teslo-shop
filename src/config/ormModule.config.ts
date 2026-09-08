@@ -9,7 +9,7 @@ interface OrmModuleConfig {
     synchronize: boolean;
 }
 
-export const ormModuleConfig: OrmModuleConfig = ({
+export const OrmModuleConfig: OrmModuleConfig = ({
     type: process.env.DB_MOTOR_DB || 'postgres',
     host: process.env.DB_HOST || 'localhost',
     port: Number(process.env.DB_PORT) || 5432,
