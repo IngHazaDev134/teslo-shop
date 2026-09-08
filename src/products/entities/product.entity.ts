@@ -38,7 +38,7 @@ export class Product {
         (productImage) => productImage.product, 
         { cascade: true, eager: true }
     )
-    images?: ProductImage;
+    images?: ProductImage[];
 
     //* Este parocion de código es pera poder insertar un slug en caso de que no se haya insertado uno 
     @BeforeInsert()
