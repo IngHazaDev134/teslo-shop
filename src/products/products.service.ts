@@ -23,8 +23,8 @@ export class ProductsService {
 
 
   async create(createProductDto: CreateProductDto) {
-    const { images = [], ...productDetails } = createProductDto;
     try {
+      const { images = [], ...productDetails } = createProductDto;
       const product = this.productRepository.create({
         ...productDetails, 
         images: images.map( image => this.productImageRepository.create({ url: image }))
@@ -41,10 +41,13 @@ export class ProductsService {
   async findAll(paginationDto: PaginationDto) {
     const { limit = 1, offset = 1 } = paginationDto;
     try {
-      const products = await this.productRepository.find({ take: limit, skip: offset
-        // TODO: relacionar las tablas de productos con las imagenes
+      const products = await this.productRepository.find({ take: limit, skip: offset,
+        relations: { images: true }
       });
-      return products;
+      return products.map( product => ({
+        ...product, 
+        images: product.images?.map(img => img.url) 
+      }));
     }catch (error: any) {
       this.handleDBExceptions(error);
     }
@@ -52,22 +55,29 @@ export class ProductsService {
   
 
 
+
   async findOne(term: string) {
-
     let product: Product | null;
+    try {
+      if(isUUID(term)) {
+        product = await this.productRepository.findOneBy({ id: term });
+      } else {
+        const queryBuilder = this.productRepository.createQueryBuilder('prod');
+        product = await queryBuilder.where(
+          'UPPER(title) =:title or slug =:slug', 
+          {title: term.toUpperCase(), slug: term.toLowerCase()})
+          .leftJoinAndSelect('prod.images', 'prodImages')
+          .getOne();
+      }
 
-    if(isUUID(term)) {
-      product = await this.productRepository.findOneBy({ id: term });
-    } else {
-      const queryBuilder = this.productRepository.createQueryBuilder('prod');
-      product = await queryBuilder.where('UPPER(title) =:title or slug =:slug', {title: term.toUpperCase(), slug: term.toLowerCase()}).getOne();
+      if(!product) {
+        throw new BadRequestException(`Product with id or slug "${term}" not found`);
+      }   
+
+      return product;
+    }catch (error: any) {
+      this.handleDBExceptions(error); 
     }
-
-    if(!product) {
-      throw new BadRequestException(`Product with id or slug "${term}" not found`);
-    }   
-
-    return product;
   }
 
 
@@ -100,6 +110,13 @@ export class ProductsService {
   }
 
 
+  async findOnePlain(term: string) {
+    const { images = [], ...product } = await this.findOne(term);
+    return {  
+      ...product,
+      images: images.map( image => image.url)
+    };
+  }
 
   private handleDBExceptions(error: any) {
     if (error.code === '23505') {
