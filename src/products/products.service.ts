@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { validate as isUUID } from 'uuid';
 import { Product, ProductImage } from './entities';
+import { resolveTlsa } from 'node:dns';
 
 @Injectable()
 export class ProductsService {
@@ -39,15 +40,10 @@ export class ProductsService {
 
  
   async findAll(paginationDto: PaginationDto) {
-    const { limit = 1, offset = 1 } = paginationDto;
+    const { limit = 3, offset = 3 } = paginationDto;
     try {
-      const products = await this.productRepository.find({ take: limit, skip: offset,
-        relations: { images: true }
-      });
-      return products.map( product => ({
-        ...product, 
-        images: product.images?.map(img => img.url) 
-      }));
+      const products = await this.productRepository.find({ take: limit, skip: offset, relations: { images: true }});
+      return products.map(product => ({...product, images: product.images?.map(img => img.url)}));
     }catch (error: any) {
       this.handleDBExceptions(error);
     }
@@ -111,12 +107,14 @@ export class ProductsService {
 
 
   async findOnePlain(term: string) {
-    const { images = [], ...product } = await this.findOne(term);
+    const product = await this.findOne(term);
     return {  
       ...product,
-      images: images.map( image => image.url)
+      images: product?.images?.map(image => image.url)
     };
   }
+
+
 
   private handleDBExceptions(error: any) {
     if (error.code === '23505') {
