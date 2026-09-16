@@ -80,7 +80,8 @@ export class ProductsService {
 
 
   async update(id: string, updateProductDto: UpdateProductDto) {
-    const product = await this.productRepository.preload({ id, ...updateProductDto, images: [] });
+    const { images, ...toUpdate } = updateProductDto;
+    const product = await this.productRepository.preload({ id, ...toUpdate });
     if(!product) {
       throw new BadRequestException(`Product with id "${id}" not found`);
     }
