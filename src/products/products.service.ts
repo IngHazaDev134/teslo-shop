@@ -125,6 +125,7 @@ export class ProductsService {
   }
 
 
+
   async findOnePlain(term: string) {
     const product = await this.findOne(term);
     return {  
@@ -140,5 +141,18 @@ export class ProductsService {
       throw new BadRequestException(error.detail);
     } 
     throw new InternalServerErrorException('Error creating product');
+  }
+
+
+  async deleteAllProducts() {
+    const query = this.productRepository.createQueryBuilder('product');
+    try {
+      return await query
+        .delete()
+        .where({})
+        .execute();
+    } catch (error) {
+      this.handleDBExceptions(error);
+    }
   }
 }
