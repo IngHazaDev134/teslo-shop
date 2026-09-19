@@ -41,9 +41,10 @@ export class ProductsService {
 
  
   async findAll(paginationDto: PaginationDto) {
-    const { limit = 3, offset = 3 } = paginationDto;
+    const { limit = 10, offset = 10 } = paginationDto;
     try {
       const products = await this.productRepository.find({ take: limit, skip: offset, relations: { images: true }});
+      console.log(products);
       return products.map(product => ({...product, images: product.images?.map(img => img.url)}));
     }catch (error: any) {
       this.handleDBExceptions(error);
@@ -147,12 +148,9 @@ export class ProductsService {
   async deleteAllProducts() {
     const query = this.productRepository.createQueryBuilder('product');
     try {
-      return await query
-        .delete()
-        .where({})
-        .execute();
-    } catch (error) {
-      this.handleDBExceptions(error);
+      return await query.delete().from(Product).execute();
+    } catch (error: any) {
+      this.handleDBExceptions( error);
     }
   }
 }
