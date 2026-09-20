@@ -1,0 +1,20 @@
+import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FilesService } from './files.service';
+import type { Express } from 'express';
+import { FileInterceptor } from '@nestjs/platform-express';
+
+
+@Controller('files')
+export class FilesController {
+  constructor(
+    private readonly filesService: FilesService
+  ) {}
+
+  @Post('product')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadProductImage( 
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return file
+  }
+}
