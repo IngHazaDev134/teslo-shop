@@ -3,6 +3,7 @@
 /node_modules
 /build
 /public
+/static/products/*.jpg
 
 # Logs
 logs
