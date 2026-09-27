@@ -4,7 +4,7 @@
   </a>
 </p>
 
-# TESLO API
+# TESLO API-SHOP
 
 #### 1. Clonar el proyecto
 #### 2. Ejecutar ```yarn install```
