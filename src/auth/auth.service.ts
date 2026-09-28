@@ -11,11 +11,11 @@ export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>
-  ){}
+  ) { }
 
   async createUser(createUserDto: CreateUserDto) {
     try {
-      const {password, ...userData } = createUserDto;
+      const { password, ...userData } = createUserDto;
 
       const user = this.userRepository.create({
         ...userData,
@@ -31,31 +31,27 @@ export class AuthService {
   }
 
 
-  async loginUser(loginUserDto: LoginUserDto){
-    // try {
-      const { password, email } = loginUserDto;
-      const user = await this.userRepository.findOne({
-        where: {email},
-        select:{email: true, password: true}
-      });
+  async loginUser(loginUserDto: LoginUserDto) {
+    const { password, email } = loginUserDto;
+    const user = await this.userRepository.findOne({
+      where: { email },
+      select: { email: true, password: true }
+    });
 
-      if(!user) 
-        throw new UnauthorizedException(`Credentials are not Valid`);
-      
-      if(!bcrypt.compareSync(password, user.password)) 
-        throw new UnauthorizedException(`Credentials are not valid`);
+    if (!user)
+      throw new UnauthorizedException(`Credentials are not Valid`);
 
-      return user;
-      // TODO: Rertornar el JWT
-    // } catch (error: any) {
-    //   this.handelDBErros(error)
-    // }
+    if (!bcrypt.compareSync(password, user.password))
+      throw new UnauthorizedException(`Credentials are not valid`);
+
+    return user;
+    // TODO: Rertornar el JWT
   }
 
 
 
   private handelDBErros(error: any): never {
-    if(error.code === "23505")
+    if (error.code === "23505")
       throw new BadRequestException(error.detail);
 
     console.log(error);
