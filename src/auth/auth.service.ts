@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -32,14 +32,27 @@ export class AuthService {
 
 
   async loginUser(loginUserDto: LoginUserDto){
-    try {
+    // try {
       const { password, email } = loginUserDto;
-      const user = await this.userRepository.findOneBy({email});
+      const user = await this.userRepository.findOne({
+        where: {email},
+        select:{email: true, password: true}
+      });
+
+      if(!user) 
+        throw new UnauthorizedException(`Credentials are not Valid`);
+      
+      if(!bcrypt.compareSync(password, user.password)) 
+        throw new UnauthorizedException(`Credentials are not valid`);
+
       return user;
-    } catch (error: any) {
-      this.handelDBErros(error)
-    }
+      // TODO: Rertornar el JWT
+    // } catch (error: any) {
+    //   this.handelDBErros(error)
+    // }
   }
+
+
 
   private handelDBErros(error: any): never {
     if(error.code === "23505")
