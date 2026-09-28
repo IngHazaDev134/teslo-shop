@@ -17,12 +17,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: ( configService: ConfigService ) => {
-        console.log("JWT Secret", configService.get('JwT_SECRET'))
-        console.log('JWT_SECRET', process.env.JWT_SECRET)
-        return{secret: `${process.env.JWT_SECRET}`, signOptions: { expiresIn: '2h'}}
+        return{secret: configService.get('JwT_SECRET'), signOptions: { expiresIn: '2h'}}
       }
     })
-    // JwtModule.register({ secret: `${process.env.JWT_SECRET}`, signOptions: { expiresIn: '2h'}})
   ],
   exports: [TypeOrmModule]
 })
