@@ -25,7 +25,6 @@ export class AuthController {
   @Get('private')
   @UseGuards(AuthGuard())
   testingPrivateRoute(
-    // @Req() request: Express.Request
     @GetUSer(['email', 'password']) user: User
   ){
     
