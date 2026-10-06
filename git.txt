@@ -1,0 +1,62 @@
+* 01fdd15 (HEAD -> haza_dev) Arreglando un poco el formato del proyecto
+* 80c4cad Tarea Cambiar email por id en el Payload
+* 0aae42d Actualizando la importaciones
+* 0f7ffd7 Private Route - General
+* 4aee232 Generar un JWT
+* 84759cc JwtStrategy - Parte 2
+* a3731df JwtStrategy de nuevo
+* ee8288e A implementar nueva mente la estrategia
+* 869d236 Seguimios mañana
+* 2f9c1fe JwtStrategy
+* 09a5062 Modulos Asincronos #1
+* b2e16be Modulos Asincronos
+* d363a83 Nest Authentication - Passport
+* 1e046e3 Login de usuario
+* ec508f8 Login de Usuario #1
+* d45963f Encriptar la contraseña
+* ddb148c Crear Usuario
+* 7e1771d Entidad de Usuarios
+* 4db12bf (tag: v1.2.0, main) Color imagenes en el directorio estatico
+* ac64455 Otras formas de desplegar archivos
+* 032afc7 Arreglamos unas dependecias
+* bd59a1a Retornar el secureUrl
+* 2808368 Servir archivos de manera controlada
+* 22462b4 Servir archivos de manera controlada
+* a8f613f Renombrar el archivo subido
+* a43e642 Guardar imagen en filesystem
+* 6ef5b2e Validar archivos
+* 191b93e Subir un archivo al backend
+* c46fa32 (tag: v1.1.0) Renombrar Tablas
+* d614579 Arreglamos algunos problemas
+* 5cec2d9 Product Seed
+* 70e9ff5 Eliminación en cascada
+* a593421 Transacciones
+* ad872f1 Query Runner
+* eaea89d Aplanar las imágenes
+* 1c15bc3 Aplanar las imagenes # 1
+* 4bbbbbd Crear imágenes de producto
+* 79f5e03 OneToMany y ManyToOne
+* 78239bf ProducImage Entity
+* a0082b2 Ordenando el código para que se lea un poco mejor
+* 8013196 Tratando de optimizar el código configuración de Global Pipes
+* 188464d (tag: v1.0.0) Nueva Columna - Tags
+* 4491b00 BeforeUpdate
+* c0b64f0 Update en TypeORM
+* f66aabf QueryBuilder
+* 9feeea9 Buscar por Slug o UUID
+* d19ebde Paginar en TypeORM
+* 44945d9 Get y Delete TypeORM
+* 362ad3a BeforInsert y BeforeUpdate #1
+* 4785d8f BeforInsert y BeforeUpdate
+* b94004a Manejo de errores
+* 2a72aa4 Insertar usando TypeORM
+* 408fde9 Crear Product DTO
+* de756ca Entidad sin relación
+* 88e8618 TypeORm - Entity - Product
+* 2bb50a5 Creando Archivos de configuración de TypeOrmModule #1
+* 7500270 Creando Archivos de configuración de TypeOrmModule
+* 88a1014 Ordenamos y dimos formato al README.md
+* f33182a Conectar Postgres con Nest
+* 56c8428 Docker - Instalar y Corre Postgres
+* 6d7a3da Inicio del proyecto - TesloShop
+* 8b4c08f Primer commit del proyecto
