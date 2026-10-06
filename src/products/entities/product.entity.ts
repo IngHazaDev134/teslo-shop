@@ -1,4 +1,4 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ProductImage } from "./product.image.entity";
 
 @Entity({ name: 'products' })
@@ -40,7 +40,7 @@ export class Product {
     )
     images?: ProductImage[];
 
-    //* Este parocion de código es pera poder insertar un slug en caso de que no se haya insertado uno 
+    //* Este porcion de código es pera poder insertar un slug en caso de que no se haya insertado uno 
     @BeforeInsert()
     checkSlugInsert() {
         if (!this.slug) {
